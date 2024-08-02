@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  font-family: "Readex Pro", sans-serif;
+}
+
+@layer base {
+  :root {
+      --main-color-background: 246, 246, 248;
+      --main-color: 19, 102, 255;
+      --main-color-hover: 55, 123, 246;
+      --section-color: 255, 255, 255;
+      --section-color-focus: 249, 249, 251;
+      --section-color-hover: 242, 242, 242;
+      --color-text-1: 27, 35, 56;
+      --color-text-2: 155, 156, 160;
+      --color-border: 226, 232, 240;
+  }
+}
+
+:root {
+  --main-color-background-css: rgb(246, 246, 248);
+  --main-color-css: rgb(19, 102, 255);
+  --main-color-hover-css: rgb(55, 123, 246);
+  --section-color-css: rgb(255, 255, 255);
+  --section-color-focus-css: rgb(249, 249, 251);
+  --section-color-hover-css: rgb(242, 242, 242);
+  --color-text-1-css: rgb(27, 35, 56);
+  --color-text-2-css: rgb(155, 156, 160);
+  --color-border-css: rgb(226, 232, 240);
+}
+
+body {
+  background: var(--main-color-background-css);
+}
+
+.modal-show{
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-hide{
+  opacity: 0;
+  visibility: hidden;
+}
