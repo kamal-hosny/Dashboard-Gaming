@@ -27,11 +27,11 @@ const NotificationNav = ({ setNotNav }) => {
   return (
     <div className="accountNav bg-sectionColor border-2 p-3 border-colorBorder rounded-lg">
       <div className='flex justify-between pt-[6px] px-1 pb-4 border-b-2'>
-        <p className='text-sm font-semibold'>Notifications</p>
+        <p className='text-sm font-semibold text-colorText2'>Notifications</p>
         <NavLink
           to="notification"
           onClick={() => setNotNav(prev => !prev)}
-          className='hover:-rotate-45 transition duration-300 flex justify-center items-center'
+          className='hover:-rotate-45 transition text-colorText2 duration-300 flex justify-center items-center'
         >
           <SettingsIcon fontSize='small' style={{ cursor: "pointer" }} />
         </NavLink>
@@ -51,13 +51,13 @@ const NotificationNav = ({ setNotNav }) => {
 };
 
 const NotificationItem = memo(({ imageUrl, message, time }) => (
-  <li className='flex gap-2 cursor-pointer hover:bg-[#f2f2f2] p-1.5 rounded-lg'>
+  <li className='flex gap-2 cursor-pointer hover:bg-sectionColorHover p-1.5 rounded-lg'>
     <div className="nicon flex-shrink-0 w-10 h-10">
       <img className='w-10 h-10 object-cover rounded-lg' src={imageUrl} alt="" />
     </div>
     <div className="info text-xs flex-1 flex flex-col gap-1">
-      <p className='font-semibold'>{message}</p>
-      <div className="time text-[#9b9ca0]">
+      <p className='font-semibold text-colorText1'>{message}</p>
+      <div className="time text-colorText2">
         {time}
       </div>
     </div>

@@ -29,7 +29,7 @@ const AccountBar = () => {
                         </p>
                     </div>
                 </div>
-                <ArrowDropDownIcon />
+                <span className="text-colorText2"><ArrowDropDownIcon /></span>
             </div>
             {statusAccountNav && (
                 <motion.div
@@ -37,7 +37,7 @@ const AccountBar = () => {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.3 }}
-                    className="absolute top-16 w-44 sm:w-full right-0 accountNavC"
+                    className="absolute top-16 w-44 sm:w-full z-10 right-0 accountNavC"
                 >
                     <AccountNav />
                 </motion.div>

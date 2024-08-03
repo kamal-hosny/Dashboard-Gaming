@@ -8,6 +8,7 @@ html {
 
 @layer base {
   :root {
+      /* tailwind variables Light*/
       --main-color-background: 246, 246, 248;
       --main-color: 19, 102, 255;
       --main-color-hover: 55, 123, 246;
@@ -21,6 +22,7 @@ html {
 }
 
 :root {
+  /* css variables Light*/
   --main-color-background-css: rgb(246, 246, 248);
   --main-color-css: rgb(19, 102, 255);
   --main-color-hover-css: rgb(55, 123, 246);
@@ -34,6 +36,31 @@ html {
 
 body {
   background: var(--main-color-background-css);
+  transition: 0.15s;
+  overflow-x: hidden;
+}
+body.dark{
+  /* tailwind variables Dark*/
+  --main-color-background: 0, 0, 0;
+  --main-color: 19, 102, 255;
+  --main-color-hover: 55, 123, 246;
+  --section-color: 20, 20, 20;
+  --section-color-focus: 33, 33, 33;
+  --section-color-hover: 64, 64, 64;
+  --color-text-1: 217, 217, 217;
+  --color-text-2: 100, 100, 100;
+  --color-border: 48, 48, 48;
+
+/* css variables Dark*/
+  --main-color-background-css: rgb(0, 0, 0);
+  --main-color-css: rgb(19, 102, 255);
+  --main-color-hover-css: rgb(55, 123, 246);
+  --section-color-css: rgb(20, 20, 20); 
+  --section-color-focus-css: rgb(33, 33, 33);
+  --section-color-hover-css: rgb(64, 64, 64);
+  --color-text-1-css: rgb(217, 217, 217);
+  --color-text-2-css: rgb(100, 100, 100);
+  --color-border-css: rgb(48, 48, 48);
 }
 
 .modal-show{

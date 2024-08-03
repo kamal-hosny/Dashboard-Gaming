@@ -40,8 +40,7 @@ const VerticalNavbar = () => {
                 <NavLink
                     to={item.path}
                     className={({ isActive }) =>
-                        `${openMenu ? "p-[15px] w-12" : "w-full"} flex items-center h-12 whitespace-nowrap  gap-2 p-3 transition-all text-colorText2 rounded-lg my-1 sm:text-base text-xs ${
-                            isActive ? "bg-mainColor text-sectionColor hover:bg-mainColorHover " : "hover:bg-sectionColor"
+                        `${openMenu ? "p-[15px] w-12" : "w-full"} flex items-center h-12 whitespace-nowrap  gap-2 p-3 transition-all relative text-colorText2 rounded-lg my-1 sm:text-base text-xs ${isActive ? "bg-mainColor text-sectionColor h                           over:bg-mainColorHover text-white " : "hover:bg-sectionColor"
                         }`
                     }
                 >
@@ -54,9 +53,8 @@ const VerticalNavbar = () => {
 
     return (
         <header
-            className={`${
-                openMenu ? "w-[89px]" : "w-[300px]"
-            } overflow-hidden transition-all p-5 relative v-nav flex-col border-r-2 h-screen border-colorBorder gap-10 bg-sectionColor`}
+            className={`${openMenu ? "w-[89px]" : "w-[300px]"
+                } overflow-hidden transition-all p-5 relative v-nav flex-col border-r-2 h-screen border-colorBorder gap-10 bg-sectionColor`}
         >
             {/* Logo */}
             <div className={` gap-2 logo flex items-center`}>
@@ -65,7 +63,7 @@ const VerticalNavbar = () => {
                         <img className="w-10 h-10" src="https://i.pinimg.com/564x/4b/74/67/4b74678fb3c9aafdbb1edac044e6017a.jpg" alt="logo" />
                     </div>
                     {!openMenu && (
-                        <p className={`font-semibold text-base transition-opacity whitespace-nowrap duration-300 ${openMenu ? "opacity-0" : "opacity-100"}`}>Oilfield Gate</p>
+                        <p className={`font-semibold text-base transition-opacity whitespace-nowrap duration-300 text-colorText1 ${openMenu ? "opacity-0" : "opacity-100"}`}>Dashboard</p>
                     )}
                 </div>
             </div>
@@ -73,16 +71,15 @@ const VerticalNavbar = () => {
             <nav className="py-6">
                 <ul className="flex flex-col gap-20">
                     <div>
-                        <p className={`text-sm font-semibold mb-2 transition-opacity whitespace-nowrap duration-300 ${openMenu ? "opacity-0" : "opacity-100"}`}>MENU</p>
+                        <p className={`text-sm font-semibold mb-2 transition-opacity whitespace-nowrap duration-300 text-colorText1 ${openMenu ? "opacity-0" : "opacity-100"}`}>MENU</p>
                         {renderedMenuItems}
                     </div>
                     <div>
-                        <p className={`text-sm font-semibold mb-2 transition-opacity duration-300 whitespace-nowrap ${openMenu ? "opacity-0" : "opacity-100"}`}>Account management</p>
+                        <p className={`text-sm font-semibold mb-2 transition-opacity duration-300 whitespace-nowrap text-colorText1 ${openMenu ? "opacity-0" : "opacity-100"}`}>Account management</p>
                         <div
-                            className={`${
-                                openMenu ? "justify-center w-12" : "w-full" 
-                            } cursor-pointer flex items-center h-12  gap-2 p-3 transition-all whitespace-nowrap text-colorText2 sm:text-base text-xs rounded-lg my-1 hover:bg-colorBorder`}
-                         onClick={()=>{dispatch(openModal("LogOut"))}}>
+                            className={`${openMenu ? "justify-center w-12" : "w-full"
+                                } cursor-pointer flex items-center h-12  gap-2 p-3 transition-all whitespace-nowrap text-colorText2 sm:text-base text-xs rounded-lg my-1 hover:bg-colorBorder`}
+                            onClick={() => { dispatch(openModal("LogOut")) }}>
                             <LogoutIcon fontSize="small" />
                             {!openMenu && <span>Log Out</span>}
                         </div>

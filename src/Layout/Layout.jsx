@@ -8,11 +8,11 @@ const Layout = () => {
   return (
     <>
       <ModalManager />
-      <div className="flex h-full w-full">
+      <div className="flex ">
         <VerticalNavbar />
         <div className="w-full">
           <HorizontalNavbar />
-          <div className="p-4">
+          <div className="p-4 ">
             <Outlet />
           </div>
         </div>

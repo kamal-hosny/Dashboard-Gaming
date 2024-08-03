@@ -8,6 +8,7 @@ import Layout from '../Layout/Layout'
 import CheckingOrders from '../pages/CheckingOrders'
 import Notification from '../pages/Notification'
 import { AllStateProvider } from '../context/AllStateContext'
+import CreateProducts from '../pages/CreateProducts'
 
 function App() {
   const Routing = createBrowserRouter([
@@ -27,6 +28,10 @@ function App() {
         {
           path: '/products',
           element: <Products />,
+        },
+        {
+          path: '/create-products',
+          element: <CreateProducts />,
         },
         {
           path: 'checking-orders',
