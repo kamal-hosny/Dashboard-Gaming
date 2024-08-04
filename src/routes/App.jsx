@@ -30,7 +30,7 @@ function App() {
           element: <Products />,
         },
         {
-          path: '/create-products',
+          path: 'products/create',
           element: <CreateProducts />,
         },
         {

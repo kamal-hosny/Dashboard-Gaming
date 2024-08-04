@@ -10,7 +10,7 @@ const Products = () => {
       Products
       </div>
       <div className='self-end'>
-        <Link to="/create-products">
+        <Link to="create">
         <button className='bg-mainColor hover:bg-mainColorHover transition p-2 rounded-md text-white'>Add product</button>
         </Link>
       </div>
