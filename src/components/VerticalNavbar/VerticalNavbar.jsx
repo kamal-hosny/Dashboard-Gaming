@@ -1,6 +1,7 @@
 import React, { useContext, useMemo } from "react";
 import { AllStateContext } from "../../context/AllStateContext";
 
+import logo from "../../assets/logo.png"
 
 import { NavLink } from "react-router-dom";
 
@@ -19,9 +20,9 @@ const menuItems = [
         path: "/products",
     },
     {
-        title: "Checking Orders",
+        title: "Users",
         icon: <GroupsIcon fontSize="small" />,
-        path: "/checking-orders",
+        path: "/users",
     },
     {
         title: "Notification",
@@ -58,12 +59,12 @@ const VerticalNavbar = () => {
         >
             {/* Logo */}
             <div className={` gap-2 logo flex items-center`}>
-                <div className="flex items-center justify-center">
+                <div className="flex items-center justify-center gap-2">
                     <div className="image w-10 h-10">
-                        <img className="w-10 h-10" src="https://i.pinimg.com/564x/4b/74/67/4b74678fb3c9aafdbb1edac044e6017a.jpg" alt="logo" />
+                        <img className="w-10 object-cover h-10" src={logo} alt="logo" />
                     </div>
                     {!openMenu && (
-                        <p className={`font-semibold text-base transition-opacity whitespace-nowrap duration-300 text-colorText1 ${openMenu ? "opacity-0" : "opacity-100"}`}>Dashboard</p>
+                        <p className={`font-semibold text-base transition-opacity whitespace-nowrap duration-300 text-colorText1 ${openMenu ? "opacity-0" : "opacity-100"}`}>GAMETEX</p>
                     )}
                 </div>
             </div>
@@ -79,7 +80,7 @@ const VerticalNavbar = () => {
                         <div
                             className={`${openMenu ? "justify-center w-12" : "w-full"
                                 } cursor-pointer flex items-center h-12  gap-2 p-3 transition-all whitespace-nowrap text-colorText2 sm:text-base text-xs rounded-lg my-1 hover:bg-colorBorder`}
-                            onClick={() => { dispatch(openModal("LogOut")) }}>
+                            onClick={() => { dispatch(openModal({name: "LogOut"})) }}>
                             <LogoutIcon fontSize="small" />
                             {!openMenu && <span>Log Out</span>}
                         </div>

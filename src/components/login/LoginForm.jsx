@@ -3,9 +3,16 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { useDispatch, useSelector } from "react-redux";
+import { loginAuth } from "../../store/login/act/actPostLoginAuth";
+import Loading from "../common/Loading";
 
 const LoginForm = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { records, loading, error } = useSelector((state) => state.loginAuth);
+    console.log(loading, error);
+
     const [showPassword, setShowPassword] = useState(false);
 
     const {
@@ -15,7 +22,19 @@ const LoginForm = () => {
     } = useForm();
 
     const onSubmit = (data) => {
-        console.log("data", data);
+        console.log(data);
+        dispatch(loginAuth({
+            "identifier": data.email,
+            "password": data.password
+        }))
+        .unwrap()
+        .then(() => {
+            console.log("susses");
+            navigate("/products");
+        })
+        .catch((error) => {
+            console.log(error + "error");
+        });
     };
 
     return (
@@ -84,15 +103,14 @@ const LoginForm = () => {
                     </div>
                 </div>
                 <div className="btn">
-                    <Link to="/products">
+                <Loading loading={loading} error={error}>
                     <button
                         type="submit"
                         className="bg-[#0f1626] text-white w-full p-2 rounded-md"
                     >
                         Login
                     </button>
-                    </Link>
-                    
+                    </Loading>
                 </div>
             </div>
         </form>
