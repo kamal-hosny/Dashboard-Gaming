@@ -3,13 +3,21 @@ import { axiosConfig } from "../../../services/axiosConfig";
 
 export const getAllProducts = createAsyncThunk(
   'products/getAllProducts',
-  async (pageNumber, thunkAPI) => {
-    console.log(pageNumber);
+  async (data, thunkAPI) => {
+    console.log(data);
+    
     try {
-      const response = await axiosConfig.get(`api/products?populate=*&pagination[page]=${pageNumber}&pagination[pageSize]=10`);
+      // Build the query string conditionally
+      let query = `api/products?populate=*&pagination[pageSize]=10&filters[name][$startsWithi]=${data.term}&populate=states&populate[states]=*&populate[img]=*&populate[mainImg]=*&populate[categories]=*`;
+
+      if (data.pageNumber) {
+        query += `&pagination[page]=${data.pageNumber}`;
+      }
+
+      const response = await axiosConfig.get(query);
       return response.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data)
+      return thunkAPI.rejectWithValue(error.response.data);
     }
   }
 )

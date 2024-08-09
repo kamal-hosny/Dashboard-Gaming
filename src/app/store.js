@@ -3,6 +3,7 @@ import modal from '../store/modal/modalSlice'
 import getAllProductsSlice from '../store/products/productsSlice'
 import getAllStatesSlice from '../store/states/stateSlice' 
 import getAllCategoriesSlice from '../store/category/categorySlice'
+import getAllUsersSlice from '../store/users/userSlice'
 import { postLoginAuthSliceReducer } from "../store/login/loginAuthSlice";
 import authSlice from "../store/login/auth/authSlice";
 
@@ -14,7 +15,7 @@ export const store = configureStore({
         modal,
         allProducts: getAllProductsSlice,
         allStates : getAllStatesSlice,
-        allCategories : getAllCategoriesSlice
-        
+        allCategories : getAllCategoriesSlice,
+        getAllUsers: getAllUsersSlice
     }
 });

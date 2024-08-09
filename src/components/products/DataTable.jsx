@@ -3,8 +3,7 @@ import { Rating } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { openModal } from '../../store/modal/modalSlice';
 import { useDispatch } from 'react-redux';
-
-const apiUrl = import.meta.env.VITE_API_URL;
+import gameNotFound from '../../assets/game-not-found.jpeg'
 
 const formatDate = (dateString) => {
   const options = {
@@ -15,7 +14,7 @@ const formatDate = (dateString) => {
   return new Date(dateString).toLocaleString(undefined, options);
 };
 
-const DataTable = ({ data }) => {
+const DataTable = ({ data, pageNumber }) => {
   const dispatch = useDispatch()
   const [gamesData, setGamesData] = useState([]);
 
@@ -35,6 +34,10 @@ const DataTable = ({ data }) => {
       setGamesData(formattedData);
     }
   }, [data]);
+
+  console.log(gamesData.img);
+
+  const startIndex = (pageNumber - 1) * 10 + 1;
 
   return (
     <div className="flex flex-col w-full relative">
@@ -58,11 +61,12 @@ const DataTable = ({ data }) => {
               <tbody className="divide-y divide-colorText2 text-colorText1">
                 {gamesData.map((game, index) => (
                   <tr key={game.id} className="hover:bg-sectionColorHover">
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">{index + 1}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">{index + startIndex}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">{game.name}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                       <img
-                        src={game.img ? `${game.img}` : "https://i.pinimg.com/236x/65/7e/7b/657e7b0379577a578338c70bbacea125.jpg"}
+                        loading='lazy'
+                        src={game.img ? `${game.img}` : gameNotFound}
                         alt={game.name}
                         className="w-10 h-10 object-cover inline-block mr-2"
                       />
@@ -76,7 +80,7 @@ const DataTable = ({ data }) => {
                     <td className="px-6 py-4 whitespace-nowrap text-sm">{game.releaseDate}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                       <Link to={`edit/${game.id}`} className="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-500 mr-2">Edit</Link>
-                      <button className="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-500" onClick={() => { dispatch(openModal({name:"Deleteproduct", id:game.id})) }}>Delete</button>
+                      <button className="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-500" onClick={() => { dispatch(openModal({ name: "Deleteproduct", id: game.id })) }}>Delete</button>
                     </td>
                   </tr>
                 ))}
