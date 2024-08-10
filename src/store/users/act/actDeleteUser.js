@@ -4,6 +4,8 @@ import { axiosConfig } from "../../../services/axiosConfig";
 export const deleteUser = createAsyncThunk(
     "users/deleteUser",
     async (id, thunk) => {
+
+        console.log(id);
         try {
             const response = await axiosConfig.delete(`api/users/${id}`)
             if(!response.ok) {

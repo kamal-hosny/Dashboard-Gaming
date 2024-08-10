@@ -4,6 +4,7 @@ import { axiosConfig } from "../../../services/axiosConfig";
 export const createProduct = createAsyncThunk(
     "products/createProduct",
     async (data, thunkAPI) => {
+        console.log(data);
         try {
             const response = await axiosConfig.post("api/products", data, {
                 headers: {

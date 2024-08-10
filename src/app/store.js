@@ -6,6 +6,7 @@ import getAllCategoriesSlice from '../store/category/categorySlice'
 import getAllUsersSlice from '../store/users/userSlice'
 import { postLoginAuthSliceReducer } from "../store/login/loginAuthSlice";
 import authSlice from "../store/login/auth/authSlice";
+import postImageSlice from "../store/image/imageSlice"
 
 export const store = configureStore({
     reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
         allProducts: getAllProductsSlice,
         allStates : getAllStatesSlice,
         allCategories : getAllCategoriesSlice,
-        getAllUsers: getAllUsersSlice
+        getAllUsers: getAllUsersSlice,
+        postImage: postImageSlice
     }
 });

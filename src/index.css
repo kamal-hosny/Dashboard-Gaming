@@ -38,6 +38,7 @@ body {
   background: var(--main-color-background-css);
   transition: 0.15s;
   overflow-x: hidden;
+  height: 100%;
   
 }
 body.dark{
@@ -106,4 +107,26 @@ body.dark{
   }
 }
 
-
+.main-title{
+  position: relative;
+  width: fit-content;
+  font-size: 36px;
+}
+.main-title::before{
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 0;;
+  width: 100%;
+  height: 5px;
+  background-color: var(--section-color-css);
+}
+.main-title::after{
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 0;;
+  width: 30%;
+  height: 5px;
+  background-color: var(--color-border-css) ;
+}

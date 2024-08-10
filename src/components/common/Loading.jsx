@@ -34,9 +34,8 @@ const Loading = ({ loading, error, children }) => {
                             ariaLabel="color-ring-loading"
                             wrapperStyle={{}}
                             wrapperClass="color-ring-wrapper"
-                            colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+                            colors={['#0ea5e9', '#0ea5e9', '#0ea5e9', '#0ea5e9', '#0ea5e9']}
                         />
-                        <p className="text-text-1">Loading...</p>
                     </div>
                 ) : error && error.message ? (
                     <p>{error.message.toString()}</p>

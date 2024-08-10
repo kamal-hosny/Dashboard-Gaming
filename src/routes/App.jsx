@@ -6,6 +6,7 @@ import Login from '../pages/Login'
 import Layout from '../Layout/Layout'
 import Notification from '../pages/Notification'
 import { AllStateProvider } from '../context/AllStateContext'
+import Loading from '../components/common/Loading'
 
 // Lazy-loaded components
 const ErrorPage = React.lazy(() => import("../pages/ErrorPage"))
@@ -13,6 +14,7 @@ const Products = React.lazy(() => import("../pages/Products"))
 const CreateProducts = React.lazy(() => import("../pages/CreateProducts"))
 const EditProducts = React.lazy(() => import("../pages/EditProducts"))
 const Users = React.lazy(() => import("../pages/Users"))
+
 
 function App() {
   const Routing = createBrowserRouter([
@@ -36,6 +38,7 @@ function App() {
           path: 'products/create',
           element: (<CreateProducts />),
         },
+
         {
           path: 'products/edit/:id',
           element: (<EditProducts />),
@@ -43,18 +46,14 @@ function App() {
         {
           path: 'users',
           element: (<Users />)
-        },
-        {
-          path: 'notification',
-          element: <Notification />
         }
       ]
     }
   ]);
 
   return (
-    <AllStateProvider>
-      <Suspense fallback={<div className="loading-container bg-mainColorBackground w-screen h-screen flex items-center justify-center text-colorText1">loading...</div>}>
+    <AllStateProvider >
+      <Suspense fallback={<div className="loading-container bg-mainColorBackground w-screen h-screen flex items-center justify-center text-colorText1">Loading..</div>}>
         <RouterProvider router={Routing} />
       </Suspense>
     </AllStateProvider>
