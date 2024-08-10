@@ -5,6 +5,8 @@ const AllStateContext = createContext({});
 const AllStateProvider = ({ children }) => {
     const [openMenu, setOpenMenu] = useState(true);
     const [mobileSize, setMobileSize] = useState(window.innerWidth < 768);
+    const [pageNumber, setPageNumber] = useState(1);
+
 
     useEffect(() => {
         const handleResize = () => {
@@ -25,8 +27,10 @@ const AllStateProvider = ({ children }) => {
     const contextValue = useMemo(() => ({
         openMenu,
         changeMenuValue,
-        mobileSize
-    }), [openMenu, mobileSize]);
+        mobileSize,
+        pageNumber,
+        setPageNumber
+    }), [openMenu, mobileSize, pageNumber]);
 
     return (
         <AllStateContext.Provider value={contextValue}>

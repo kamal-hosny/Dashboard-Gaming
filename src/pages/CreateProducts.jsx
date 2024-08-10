@@ -1,12 +1,18 @@
-import React, { useState, useEffect, memo } from "react";
+import React, { useState, useEffect, memo, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { createProduct } from "../store/products/act/actCreateProduct";
 import { getAllStates } from "../store/states/act/actGetAllStates";
 import { getAllCategories } from "../store/category/act/actGetAllCategories";
+import { postImg } from "../store/image/act/actPostImg";
+import { AllStateContext } from "../context/AllStateContext";
+import { useNavigate } from "react-router-dom";
 
 const CreateProducts = () => {
+  const navigate = useNavigate()
   const dispatch = useDispatch();
+
+  const { mobileSize, openMenu } = useContext(AllStateContext);
   // Fetch all states
   const {
     records: stateRecords = { data: [] },
@@ -14,6 +20,10 @@ const CreateProducts = () => {
     error: errorStates,
   } = useSelector((state) => state.allStates || {});
   const [statesData, setStatesData] = useState([]);
+
+  useEffect(() => {
+    dispatch(getAllStates());
+  }, [dispatch]);
 
   useEffect(() => {
     if (stateRecords.data) {
@@ -28,6 +38,10 @@ const CreateProducts = () => {
     error: errorCategories,
   } = useSelector((state) => state.allCategories || {});
   const [categoriesData, setCategoriesData] = useState([]);
+
+  useEffect(() => {
+    dispatch(getAllCategories());
+  }, [dispatch]);
 
   useEffect(() => {
     if (categoryRecords.data) {
@@ -45,29 +59,31 @@ const CreateProducts = () => {
   const [preview, setPreview] = useState(null);
   const [previewBanner, setPreviewBanner] = useState(null);
 
-  const onSubmit = (data) => {
-    console.log('Form submitted:', data);
-    const formData = new FormData();
+  const onSubmit = async (data) => {
+    console.log("Form submitted:", data);
 
-    // Handle main image
-    formData.append("mainImg", data.mainImg[0]);
+    const formData = new FormData();
+    formData.append("ref", "api::product.product");
+    formData.append("refId", "145");
+    formData.append("field", "img");
+
+    // Handle main image (optional)
+    if (data.mainImg?.length) {
+      formData.append("mainImg", data.mainImg[0]);
+    }
 
     // Handle cover image
-    formData.append("img", data.img[0]);
+    if (data.img?.length) {
+      formData.append("img", data.img[0]);
+    }
 
-    // Add other fields
-    Object.keys(data).forEach((key) => {
-      if (key === "systemRequirements") {
-        formData.append(key, JSON.stringify(data[key]));
-      } else if (key !== "img" && key !== "mainImg") {
-        formData.append(key, data[key]);
-      }
-    });
+    try {
+      await dispatch(postImg(formData));
+      console.log("Image upload successful!");
+    } catch (error) {
+      console.error("Image upload failed: ", error);
+    }
 
-
-
-    
-    // API request Data
     const productData = {
       data: {
         name: data.name,
@@ -89,17 +105,14 @@ const CreateProducts = () => {
       },
     };
 
-    // إرسال الطلب باستخدام dispatch
-    dispatch(createProduct(productData))
-      .then(() => {
-        reset();
-        console.log("success!");
-      })
-      .catch((error) => {
-        console.log(error + "error");
-      });
-
-    console.log(data);
+    try {
+      await dispatch(createProduct(productData));
+      reset();
+      navigate("/products")
+      console.log("Product creation successful!");
+    } catch (error) {
+      console.error("Product creation failed: ", error);
+    }
   };
 
   const handleImageUpload = (event) => {
@@ -117,7 +130,7 @@ const CreateProducts = () => {
       setPreviewBanner(previewUrl);
     }
   };
-  // Clean up preview URL to avoid memory leaks
+
   useEffect(() => {
     return () => {
       if (preview) {
@@ -128,9 +141,8 @@ const CreateProducts = () => {
       }
     };
   }, [preview, previewBanner]);
-
   return (
-    <div>
+    <div className={`${!mobileSize && !openMenu && (" pl-10 ")}`}>
       <h2 className="main-title text-colorText1">Create Product</h2>
       <form
         className="py-4 flex flex-col gap-4"

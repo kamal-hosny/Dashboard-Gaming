@@ -15,6 +15,11 @@ const initialState = {
 const getAllProductsSlice = createSlice({
     name: "products",
     initialState,
+    reducers: {
+        cleanRecord: (state) => {
+            state.record = null;
+        }
+    },
     extraReducers: (builder) => {
         builder
         // getAllProducts
@@ -56,7 +61,11 @@ const getAllProductsSlice = createSlice({
         })
         .addCase(deleteProduct.fulfilled, (state, action) => {
             state.loading = false;
-            state.records = state.records.filter((el) => el.id !== action.payload);
+            if (Array.isArray(state.records)) {
+                state.records = state.records.filter((el) => el.id !== action.payload);
+            } else {
+                state.records = []; 
+            }
         })
         .addCase(deleteProduct.rejected, (state, action) => {
             state.loading = false;
@@ -98,4 +107,5 @@ const getAllProductsSlice = createSlice({
     }
 });
 
+export const { cleanRecord } = getAllProductsSlice.actions;
 export default getAllProductsSlice.reducer;

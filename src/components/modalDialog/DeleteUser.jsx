@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { closeModal } from '../../store/modal/modalSlice';
 import { getAllUsers } from '../../store/users/act/actGetAllUsers';
 import { deleteUser } from '../../store/users/act/actDeleteUser';
+import { clearUserData } from '../../store/login/auth/authSlice'; 
 
 const DeleteProduct = () => {
     const dispatch = useDispatch();
@@ -22,6 +23,11 @@ const DeleteProduct = () => {
 
     const handleCancel = () => {
         dispatch(closeModal());
+    };
+
+    const handleLogout = () => {
+        dispatch(clearUserData()); // تسجيل الخروج
+        console.log("User has been logged out.");
     };
 
     return (
@@ -46,6 +52,13 @@ const DeleteProduct = () => {
                     className="bg-gray-700 hover:bg-gray-900 transition-all text-white px-4 py-2 rounded"
                 >
                     Cancel
+                </button>
+                <button
+                    type="button"
+                    onClick={handleLogout} // زر تسجيل الخروج
+                    className="bg-blue-700 hover:bg-blue-900 transition-all text-white px-4 py-2 rounded"
+                >
+                    Logout
                 </button>
             </div>
         </div>

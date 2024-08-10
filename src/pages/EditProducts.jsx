@@ -1,17 +1,22 @@
-import React, { useState, useEffect, memo } from "react";
+import React, { useState, useEffect, memo, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllStates } from "../store/states/act/actGetAllStates";
 import { getAllCategories } from "../store/category/act/actGetAllCategories";
 import { getOneProduct } from "../store/products/act/actGetOneProduct";
 import { editProduct } from "../store/products/act/actEditProduct";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import  gameNotFound  from "../assets/game-not-found.jpeg"
+import { AllStateContext } from "../context/AllStateContext";
+import { cleanRecord } from "../store/products/productsSlice";
 
 
 const EditProducts = () => {
+  const navigate = useNavigate()
   const { id } = useParams();
   const dispatch = useDispatch();
+
+  const { mobileSize, openMenu } = useContext(AllStateContext);
 
   // Fetch all states and categories
   useEffect(() => {
@@ -51,6 +56,11 @@ const EditProducts = () => {
       dispatch(getOneProduct(id));
     }
   }, [dispatch, id]);
+
+  useEffect(() => {
+    dispatch(cleanRecord())
+  }, [dispatch])
+
 
   const { record } = useSelector((state) => state.allProducts);
 
@@ -137,6 +147,7 @@ const EditProducts = () => {
     dispatch(editProduct(productData))
       .then(() => {
         reset();
+        navigate("/products")
         console.log("Success!");
       })
       .catch((error) => {
@@ -176,8 +187,8 @@ const EditProducts = () => {
 
 
   return (
-    <div>
-    <h2 className="main-title text-colorText1">Edit Product</h2>
+    <div className={`${!mobileSize && !openMenu && (" pl-10 ")}`}>
+    <h2 className="main-title  text-colorText1">Edit Product</h2>
     <form
       className="py-4 flex flex-col gap-4"
       onSubmit={handleSubmit(onSubmit)}

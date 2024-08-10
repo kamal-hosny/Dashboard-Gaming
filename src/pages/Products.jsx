@@ -14,9 +14,9 @@ import { AllStateContext } from '../context/AllStateContext';
 import { DrawerDefault } from '../components/products/DrawerDefault';
 
 const Products = () => {
-  const { mobileSize, openMenu } = useContext(AllStateContext);
+  const { mobileSize, openMenu, pageNumber, setPageNumber } = useContext(AllStateContext);
   const dispatch = useDispatch();
-  const [pageNumber, setPageNumber] = useState(1);
+  // const [pageNumber, setPageNumber] = useState(1);
   const [statesValue, setStatesValue] = React.useState("");
 
   const [term, setTerm] = useState("");

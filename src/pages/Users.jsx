@@ -28,13 +28,21 @@ const Users = () => {
           <div className="main-title  font-semibold text-colorText1 ">
             Users
           </div>
-          <Loading loading={loading} error={error}>
-            <div className="cards justify-center flex flex-wrap gap-4">
-              {records?.map((user) => (
-                <Card key={user.id} user={user} />
-              ))}
-            </div>
-          </Loading>
+          {loading ? (
+  <div className='absolute w-5/6 h-5/6 flex justify-center items-center'>
+    <Loading loading={loading} error={error}>
+      .
+    </Loading>
+  </div>
+) : (
+  <Loading loading={loading} error={error}>
+  <div className="cards justify-center flex flex-wrap gap-4">
+    {records?.map((user) => (
+      <Card key={user.id} user={user} />
+    ))}
+  </div>
+</Loading>
+)}
 
         </div>
       </div>
@@ -43,3 +51,6 @@ const Users = () => {
 };
 
 export default Users;
+
+
+

@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { postImg } from "./act/actPostImg";
 
 const initialState = {
     img: "",

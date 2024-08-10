@@ -1,19 +1,21 @@
-import React, { useCallback } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { closeModal } from '../../store/modal/modalSlice'
-import { deleteProduct } from '../../store/products/act/actDeleteProduct'
-import { getAllProducts } from '../../store/products/act/actGetAllProducts'
+import React, { useCallback, useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { closeModal } from '../../store/modal/modalSlice';
+import { deleteProduct } from '../../store/products/act/actDeleteProduct';
+import { getAllProducts } from '../../store/products/act/actGetAllProducts';
+import { AllStateContext } from '../../context/AllStateContext';
+
 const DeleteProduct = () => {
-    const dispatch = useDispatch()
-    const { idProduct } = useSelector((state) => state?.modal)
-
-
+    const dispatch = useDispatch();
+    const { idProduct } = useSelector((state) => state?.modal);
+    const { setPageNumber } = useContext(AllStateContext);
     const removeProduct = useCallback(async () => {
         try {
             await dispatch(deleteProduct(idProduct)).unwrap();
             console.log("The product has been successfully deleted.");
+            dispatch(closeModal()); // Close the modal before fetching
+            setPageNumber(1)
             await dispatch(getAllProducts({ term: '', statesValue: '', pageNumber: 1 })).unwrap();
-            dispatch(closeModal());
         } catch (error) {
             console.error("Error deleting the product:", error);
         }
@@ -33,7 +35,6 @@ const DeleteProduct = () => {
                     <div className='text-colorText1'>
                         Are you sure to Delete Product?
                     </div>
-                    {/* S btn */}
                     <div className="col-span-2 flex justify-between gap-2 mt-2 items-center">
                         <div className="flex items-center gap-2">
                             <button type='button' onClick={removeProduct} className="bg-red-700 hover:bg-red-900 transition-all text-white px-3 py-2 rounded-sm">
@@ -44,11 +45,10 @@ const DeleteProduct = () => {
                             </button>
                         </div>
                     </div>
-                    {/* E btn */}
                 </form>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default DeleteProduct
+export default DeleteProduct;
