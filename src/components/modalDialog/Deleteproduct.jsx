@@ -15,7 +15,7 @@ const DeleteProduct = () => {
             console.log("The product has been successfully deleted.");
             dispatch(closeModal()); // Close the modal before fetching
             setPageNumber(1)
-            await dispatch(getAllProducts({ term: '', statesValue: '', pageNumber: 1 })).unwrap();
+            await dispatch(getAllProducts({ term: '', statesValue: '', pageNumber: 1 , categoriesValue: ''})).unwrap();
         } catch (error) {
             console.error("Error deleting the product:", error);
         }

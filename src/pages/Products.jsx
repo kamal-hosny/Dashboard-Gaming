@@ -17,19 +17,23 @@ const Products = () => {
   const { mobileSize, openMenu, pageNumber, setPageNumber } = useContext(AllStateContext);
   const dispatch = useDispatch();
   // const [pageNumber, setPageNumber] = useState(1);
-  const [statesValue, setStatesValue] = React.useState("");
+  const [statesValue, setStatesValue] = useState("");
+  const [categoriesValue, setCategoriesValue] = useState("");
 
   const [term, setTerm] = useState("");
   const { records, loading, error } = useSelector((state) => state?.allProducts);
 
   const prevTerm = usePrevState(term);
 
+
+
+
   // Memoizing dispatch actions to avoid unnecessary recalculations
   const fetchCategories = useCallback(() => dispatch(getAllCategories()), [dispatch]);
   const fetchStates = useCallback(() => dispatch(getAllStates()), [dispatch]);
   const fetchProducts = useCallback(() => {
-    dispatch(getAllProducts({ pageNumber, term, statesValue }));
-  }, [dispatch, pageNumber, term, statesValue]);
+    dispatch(getAllProducts({ pageNumber, term, statesValue, categoriesValue }));
+  }, [dispatch, pageNumber, term, statesValue, categoriesValue]);
 
   useEffect(() => {
     fetchCategories();
@@ -65,7 +69,7 @@ const Products = () => {
               <Button className='bg-mainColor normal-case py-2 px-4 rounded-sm cursor-pointer'>Create</Button>
             </Link>
             <div className='flex items-center justify-center'><SearchProducts term={term} setTerm={setTerm} />
-            <DrawerDefault statesValue={statesValue} setStatesValue={setStatesValue} /></div>
+            <DrawerDefault statesValue={statesValue} setStatesValue={setStatesValue} categoriesValue={categoriesValue} setCategoriesValue={setCategoriesValue} /></div>
           </div>
 
           {loading ? (

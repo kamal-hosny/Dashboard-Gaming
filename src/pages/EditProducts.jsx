@@ -9,6 +9,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import  gameNotFound  from "../assets/game-not-found.jpeg"
 import { AllStateContext } from "../context/AllStateContext";
 import { cleanRecord } from "../store/products/productsSlice";
+import Loading from "../components/common/Loading";
 
 
 const EditProducts = () => {
@@ -62,7 +63,7 @@ const EditProducts = () => {
   }, [dispatch])
 
 
-  const { record } = useSelector((state) => state.allProducts);
+  const { record, loading, error } = useSelector((state) => state.allProducts);
 
   // Initialize form
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
@@ -189,6 +190,14 @@ const EditProducts = () => {
   return (
     <div className={`${!mobileSize && !openMenu && (" pl-10 ")}`}>
     <h2 className="main-title  text-colorText1">Edit Product</h2>
+    {loading ? (
+  <div className='absolute w-5/6 h-5/6 flex justify-center items-center'>
+    <Loading loading={loading} error={error}>
+      .
+    </Loading>
+  </div>
+) : (
+  <Loading loading={loading} error={error}>
     <form
       className="py-4 flex flex-col gap-4"
       onSubmit={handleSubmit(onSubmit)}
@@ -488,8 +497,11 @@ const EditProducts = () => {
         Create
       </button>
     </form>
+  </Loading>
+)}
   </div>
   );
 };
 
 export default memo(EditProducts);
+
